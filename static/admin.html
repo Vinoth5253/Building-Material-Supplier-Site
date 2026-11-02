@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>KVS&amp;CO Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/design.css">
+  <link rel="stylesheet" href="/static/css/site.css">
+  <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+<body>
+  <div class="blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <!-- LOGIN -->
+  <div id="loginView" class="login-wrap" hidden>
+    <form class="login glass" id="loginForm" autocomplete="on">
+      <div class="login-top">
+        <a class="logo" href="/"><span class="logo-mark logo-slot"></span><span>KVS<b>&amp;</b>CO</span></a>
+        <div class="seg lang-switch" role="group" data-i18n-aria="language">
+          <button type="button" data-lang="en">EN</button><button type="button" data-lang="ta" lang="ta">தமிழ்</button>
+        </div>
+      </div>
+      <h1 data-i18n="sign_in_title"></h1>
+      <p class="muted" data-i18n="sign_in_sub"></p>
+      <label class="field"><span data-i18n="username"></span><input class="input" name="username" autocomplete="username" required></label>
+      <label class="field"><span data-i18n="password"></span><input class="input" name="password" type="password" autocomplete="current-password" required></label>
+      <p class="form-error" id="loginError" role="alert"></p>
+      <button class="btn btn-primary" type="submit" style="width:100%" data-i18n="sign_in"></button>
+      <a class="back" href="/" data-i18n="back_site"></a>
+    </form>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="appView" hidden>
+    <header class="site-header">
+      <div class="bar glass">
+        <a class="logo" href="/" title="KVS&amp;CO"><span class="logo-mark logo-slot"></span><span class="word">KVS<b>&amp;</b>CO <small class="admin-pill">Admin</small></span></a>
+        <nav class="tabs seg" role="tablist" aria-label="Admin">
+          <button type="button" role="tab" data-tab="items" aria-pressed="true"><span data-icon="grid"></span><span data-i18n="tab_items"></span></button>
+          <button type="button" role="tab" data-tab="import"><span data-icon="file"></span><span data-i18n="tab_import"></span></button>
+          <button type="button" role="tab" data-tab="settings"><span data-icon="gear"></span><span data-i18n="tab_settings"></span></button>
+        </nav>
+        <div class="header-tools">
+          <div class="seg lang-switch" role="group" data-i18n-aria="language">
+            <button type="button" data-lang="en">EN</button><button type="button" data-lang="ta" lang="ta">தமிழ்</button>
+          </div>
+          <a class="btn btn-sm" href="/" target="_blank" rel="noopener"><span data-icon="external"></span><span class="hide-sm" data-i18n="view_site"></span></a>
+          <button class="btn btn-icon" type="button" id="logoutBtn" data-i18n-aria="sign_out" data-i18n-title="sign_out"><span data-icon="logout"></span></button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container admin-main">
+      <div class="warn glass" id="pwWarn" hidden>
+        <span data-icon="shield"></span>
+        <span><span data-i18n="pw_warn"></span> <a href="#" data-goto="settings" data-i18n="pw_warn_link"></a></span>
+      </div>
+
+      <!-- ITEMS -->
+      <section class="tab-panel" id="tab-items">
+        <div class="kpis" id="kpis"></div>
+        <div class="toolbar glass admin-toolbar">
+          <label class="search"><span class="sr-only" data-i18n="search_items"></span><span data-icon="search"></span><input class="input" id="aq" type="search" data-i18n-ph="search_items"></label>
+          <select class="select" id="aCat" aria-label="Category"></select>
+          <select class="select" id="aAv" aria-label="Availability"></select>
+          <button class="btn btn-primary" type="button" id="addBtn"><span data-icon="plus"></span><span data-i18n="add_item"></span></button>
+        </div>
+        <p class="hint" id="rowHint"><span data-icon="image"></span><span data-i18n="row_hint"></span></p>
+        <div class="table-wrap neu">
+          <table class="tbl">
+            <thead><tr><th></th><th data-i18n="th_item"></th><th data-i18n="th_category"></th><th class="num" data-i18n="th_price"></th><th class="num" data-i18n="th_stock"></th><th data-i18n="th_avail"></th><th data-i18n="th_highlight"></th><th data-i18n="th_innov"></th><th></th></tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+        <p class="muted small" id="rowCount"></p>
+      </section>
+
+      <!-- IMPORT -->
+      <section class="tab-panel" id="tab-import" hidden>
+        <div class="steps">
+          <div class="step neu">
+            <span class="num-badge">1</span>
+            <h2 data-i18n="step1_title"></h2>
+            <p class="muted" data-i18n="step1_desc"></p>
+            <div class="row-btns">
+              <a class="btn" href="/api/admin/template"><span data-icon="download"></span><span data-i18n="template"></span></a>
+              <a class="btn" href="/api/admin/export"><span data-icon="download"></span><span data-i18n="export"></span></a>
+            </div>
+          </div>
+          <div class="step neu">
+            <span class="num-badge">2</span>
+            <h2 data-i18n="step2_title"></h2>
+            <label class="drop neu-in" id="xlDrop">
+              <input type="file" id="xlFile" accept=".xlsx,.xlsm" hidden>
+              <span data-icon="upload"></span>
+              <b id="xlName" data-i18n="drop_xl"></b>
+              <small class="muted" data-i18n="drop_xl_hint"></small>
+            </label>
+            <fieldset class="modes">
+              <legend class="sr-only">Mode</legend>
+              <label class="mode"><input type="radio" name="mode" value="merge" checked><span><b data-i18n="mode_merge"></b><small data-i18n="mode_merge_d"></small></span></label>
+              <label class="mode"><input type="radio" name="mode" value="replace"><span><b data-i18n="mode_replace"></b><small data-i18n="mode_replace_d"></small></span></label>
+            </fieldset>
+          </div>
+          <div class="step neu" id="previewStep">
+            <span class="num-badge">3</span>
+            <h2 data-i18n="step3_title"></h2>
+            <div id="preview" class="muted"><span data-i18n="preview_empty"></span></div>
+            <button class="btn btn-primary" type="button" id="applyBtn" disabled><span data-icon="upload"></span><span data-i18n="apply"></span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section class="tab-panel" id="tab-settings" hidden>
+        <div class="settings-grid">
+          <form class="step neu" id="settingsForm">
+            <h2 data-i18n="business"></h2>
+            <div class="form-grid">
+              <label class="field"><span data-i18n="company"></span><input class="input" name="company_name"></label>
+              <label class="field"><span data-i18n="phone"></span><input class="input" name="phone"></label>
+              <label class="field"><span data-i18n="whatsapp"></span><input class="input" name="whatsapp" inputmode="numeric"></label>
+              <label class="field"><span data-i18n="email"></span><input class="input" name="email" type="email"></label>
+              <label class="field span2"><span data-i18n="tagline_en"></span><input class="input" name="tagline_en"></label>
+              <label class="field span2"><span data-i18n="tagline_ta"></span><input class="input" name="tagline_ta" lang="ta"></label>
+              <label class="field"><span data-i18n="address_en"></span><input class="input" name="address_en"></label>
+              <label class="field"><span data-i18n="address_ta"></span><input class="input" name="address_ta" lang="ta"></label>
+              <label class="field"><span data-i18n="hours_en"></span><input class="input" name="hours_en"></label>
+              <label class="field"><span data-i18n="hours_ta"></span><input class="input" name="hours_ta" lang="ta"></label>
+              <label class="field span2"><span data-i18n="map"></span><input class="input" name="map_url" type="url"></label>
+              <label class="switch span2"><input type="checkbox" name="show_prices"><span class="track"></span><span data-i18n="show_prices"></span></label>
+            </div>
+            <button class="btn btn-primary" type="submit" data-i18n="save_details"></button>
+          </form>
+          <form class="step neu" id="pwForm">
+            <h2 data-i18n="admin_login"></h2>
+            <label class="field"><span data-i18n="username"></span><input class="input" name="username" autocomplete="username"></label>
+            <label class="field"><span data-i18n="current_pw"></span><input class="input" name="current" type="password" autocomplete="current-password" required></label>
+            <label class="field"><span data-i18n="new_pw"></span><input class="input" name="new" type="password" autocomplete="new-password" minlength="8" required></label>
+            <p class="form-error" id="pwError" role="alert"></p>
+            <button class="btn btn-primary" type="submit" data-i18n="update_login"></button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- RIGHT-CLICK MENU (items table) -->
+  <div class="ctx glass" id="ctx" role="menu" hidden>
+    <div class="ctx-head" id="ctxHead"></div>
+    <button type="button" role="menuitem" data-ctx="image"><span data-icon="upload"></span><span id="ctxImgLabel"></span></button>
+    <button type="button" role="menuitem" data-ctx="remove-image"><span data-icon="image"></span><span data-i18n="ctx_remove_image"></span></button>
+    <button type="button" role="menuitem" data-ctx="edit"><span data-icon="edit"></span><span data-i18n="ctx_edit"></span></button>
+    <hr>
+    <button type="button" role="menuitem" data-ctx="delete" class="danger"><span data-icon="trash"></span><span data-i18n="ctx_delete"></span></button>
+  </div>
+  <input type="file" id="rowImgFile" accept=".png,.jpg,.jpeg,.webp,.gif" hidden>
+
+  <!-- ITEM EDITOR -->
+  <div class="modal-backdrop" id="editModal" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+    <form class="modal glass" id="editForm">
+      <button class="btn btn-icon modal-close" type="button" data-close data-i18n-aria="close"><span data-icon="close"></span></button>
+      <h2 id="editTitle"></h2>
+      <div class="edit-grid">
+        <div class="edit-image">
+          <div id="editArt"></div>
+          <label class="btn btn-sm" style="width:100%"><input type="file" id="editImgFile" accept=".png,.jpg,.jpeg,.webp,.gif" hidden><span data-icon="upload"></span><span data-i18n="upload_photo"></span></label>
+          <label class="field"><span data-i18n="or_url"></span><input class="input" name="image" placeholder="https://… or /uploads/…"></label>
+          <button class="btn btn-sm btn-danger" type="button" id="clearImg" data-i18n="remove_photo"></button>
+        </div>
+        <div class="form-grid">
+          <label class="field"><span data-i18n="f_sku"></span><input class="input" name="sku" required></label>
+          <label class="field"><span data-i18n="f_category"></span><input class="input" name="category" list="catList" required></label>
+          <label class="field span2"><span data-i18n="f_name_en"></span><input class="input" name="name_en" required></label>
+          <label class="field span2"><span data-i18n="f_name_ta"></span><input class="input" name="name_ta" lang="ta"></label>
+          <label class="field"><span data-i18n="f_brand"></span><input class="input" name="brand"></label>
+          <label class="field"><span data-i18n="f_unit"></span><input class="input" name="unit"></label>
+          <label class="field"><span data-i18n="f_price"></span><input class="input" name="price" type="number" step="0.01" min="0"></label>
+          <label class="field"><span data-i18n="f_stock"></span><input class="input" name="stock" type="number" step="1" min="0"></label>
+          <label class="field"><span data-i18n="f_avail"></span><select class="select" name="availability" id="editAv"></select></label>
+          <div class="field toggles">
+            <label class="switch"><input type="checkbox" name="highlight"><span class="track"></span><span data-i18n="f_highlight"></span></label>
+            <label class="switch"><input type="checkbox" name="innovation"><span class="track"></span><span data-i18n="f_innov"></span></label>
+          </div>
+          <label class="field span2"><span data-i18n="f_desc_en"></span><textarea class="textarea" name="desc_en"></textarea></label>
+          <label class="field span2"><span data-i18n="f_desc_ta"></span><textarea class="textarea" name="desc_ta" lang="ta"></textarea></label>
+          <label class="field span2"><span data-i18n="f_specs"></span><textarea class="textarea" name="specs"></textarea></label>
+        </div>
+      </div>
+      <p class="form-error" id="editError" role="alert"></p>
+      <div class="row-btns end">
+        <button class="btn" type="button" data-close data-i18n="cancel"></button>
+        <button class="btn btn-primary" type="submit" data-i18n="save_item"></button>
+      </div>
+      <datalist id="catList"></datalist>
+    </form>
+  </div>
+
+  <div class="toast glass" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="/static/js/icons.js"></script>
+  <script src="/static/js/i18n.js"></script>
+  <script src="/static/js/admin-i18n.js"></script>
+  <script src="/static/js/admin.js"></script>
+</body>
+</html>

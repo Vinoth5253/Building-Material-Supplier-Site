@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KVS&amp;CO Building Materials</title>
+  <meta name="description" content="KVS&CO — building materials supplier. Browse cement, steel, bricks, tiles, paints, plumbing, electrical and more with live stock availability.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/design.css">
+  <link rel="stylesheet" href="/static/css/site.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 20V10l7-6 7 6v10' stroke='%23E2702B'/%3E%3Cpath d='M9 20v-5h6v5' stroke='%231F8A70'/%3E%3C/svg%3E">
+</head>
+<body>
+  <div class="blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <header class="site-header">
+    <div class="bar glass">
+      <a class="logo" href="#top" aria-label="KVS&CO home"><span class="logo-mark" id="logoMark"></span><span class="word">KVS<b>&amp;</b>CO</span></a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="#top" data-i18n="nav_home"></a>
+        <a href="#highlights" data-i18n="nav_highlights"></a>
+        <a href="#catalog" data-i18n="nav_catalog"></a>
+        <a href="#innovations" data-i18n="nav_innovations"></a>
+        <a href="#contact" data-i18n="nav_contact"></a>
+      </nav>
+      <div class="header-tools">
+        <label class="header-search"><span class="sr-only" data-i18n="search_ph"></span><span data-icon="search"></span><input class="input" id="headerSearch" type="search" data-i18n-ph="search_ph"></label>
+        <div class="seg" role="group" data-i18n-aria="language" id="langSwitch">
+          <button type="button" data-lang="en">EN</button>
+          <button type="button" data-lang="ta" lang="ta">தமிழ்</button>
+        </div>
+        <button class="btn btn-icon" id="themeBtn" type="button" data-i18n-aria="theme"></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <span class="kicker"><span data-icon="helmet"></span><span data-i18n="hero_kicker"></span></span>
+          <h1><span data-i18n="hero_title_1"></span><br><span class="accent" data-i18n="hero_title_2"></span></h1>
+          <p class="lead" id="tagline"></p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#catalog"><span data-icon="grid"></span><span data-i18n="hero_cta"></span></a>
+            <a class="btn" id="heroCall" href="#contact"><span data-icon="phone"></span><span data-i18n="hero_call"></span></a>
+          </div>
+          <div class="note glass"><span data-icon="shield"></span><span data-i18n="showcase_note"></span></div>
+        </div>
+        <div class="hero-visual reveal">
+          <div class="float-tile t1" data-icon="Bricks & Blocks"></div>
+          <div class="float-tile t2" data-icon="Steel & TMT"></div>
+          <div class="float-tile t3" data-icon="sparkle"></div>
+          <div class="hero-card glass">
+            <div class="live"><i></i><span data-i18n="live"></span></div>
+            <div class="hero-mini" id="heroMini"></div>
+            <div class="stats">
+              <div class="stat"><b id="statProducts">–</b><span data-i18n="stat_products"></span></div>
+              <div class="stat"><b id="statCats">–</b><span data-i18n="stat_categories"></span></div>
+              <div class="stat"><b id="statStock">–</b><span data-i18n="stat_instock"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HIGHLIGHTS -->
+    <section id="highlights">
+      <div class="container">
+        <div class="sec-head reveal">
+          <div><span class="kicker"><span data-icon="star"></span><span data-i18n="highlights_title"></span></span>
+            <h2 data-i18n="highlights_title"></h2><p data-i18n="highlights_sub"></p></div>
+          <div class="rail-nav">
+            <button class="btn btn-icon" type="button" id="railPrev" aria-label="Previous"><span data-icon="arrowL"></span></button>
+            <button class="btn btn-icon" type="button" id="railNext" aria-label="Next"><span data-icon="arrowR"></span></button>
+          </div>
+        </div>
+        <div class="rail-wrap"><div class="rail" id="rail" aria-roledescription="carousel"></div></div>
+        <div class="rail-dots" id="railDots"></div>
+      </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section id="categories" style="padding-top:24px">
+      <div class="container">
+        <div class="sec-head reveal"><div><h2 data-i18n="categories_title"></h2><p data-i18n="categories_sub"></p></div></div>
+        <div class="cat-grid" id="catGrid"></div>
+      </div>
+    </section>
+
+    <!-- CATALOGUE -->
+    <section id="catalog">
+      <div class="container">
+        <div class="sec-head reveal"><div><span class="kicker"><span data-icon="grid"></span><span data-i18n="live"></span></span>
+          <h2 data-i18n="catalog_title"></h2><p data-i18n="catalog_sub"></p></div></div>
+        <div class="toolbar glass">
+          <label class="search"><span class="sr-only" data-i18n="search_ph"></span><span data-icon="search"></span><input class="input" id="q" type="search" data-i18n-ph="search_ph"></label>
+          <select class="select" id="fCat" aria-label="Category"></select>
+          <select class="select" id="fAv" aria-label="Availability"></select>
+          <select class="select" id="fSort" aria-label="Sort"></select>
+        </div>
+        <div class="result-line"><span id="count"></span><button class="btn btn-sm" type="button" id="clearBtn" hidden data-i18n="clear_filters"></button></div>
+        <div class="grid" id="grid"></div>
+      </div>
+    </section>
+
+    <!-- INNOVATIONS -->
+    <section id="innovations" class="innov">
+      <div class="container">
+        <div class="sec-head reveal"><div><span class="tag tag-gold"><span data-icon="sparkle"></span><span data-i18n="innov_tag"></span></span>
+          <h2 style="margin-top:10px" data-i18n="innov_title"></h2><p data-i18n="innov_sub"></p></div></div>
+        <div class="bento" id="bento"></div>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section>
+      <div class="container">
+        <div class="sec-head reveal"><h2 data-i18n="why_title"></h2></div>
+        <div class="why-grid">
+          <div class="why neu reveal"><div class="ic" data-icon="shield"></div><h3 data-i18n="why_1_t"></h3><p data-i18n="why_1_d"></p></div>
+          <div class="why neu reveal"><div class="ic" data-icon="truck"></div><h3 data-i18n="why_2_t"></h3><p data-i18n="why_2_d"></p></div>
+          <div class="why neu reveal"><div class="ic" data-icon="tag"></div><h3 data-i18n="why_3_t"></h3><p data-i18n="why_3_d"></p></div>
+          <div class="why neu reveal"><div class="ic" data-icon="helmet"></div><h3 data-i18n="why_4_t"></h3><p data-i18n="why_4_d"></p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <div class="contact glass reveal">
+          <div>
+            <h2 data-i18n="contact_title"></h2>
+            <p data-i18n="contact_sub"></p>
+            <div class="hero-cta">
+              <a class="btn btn-primary" id="ctaCall" href="#"><span data-icon="phone"></span><span data-i18n="call"></span></a>
+              <a class="btn" id="ctaWa" href="#" target="_blank" rel="noopener"><span data-icon="chat"></span>WhatsApp</a>
+            </div>
+          </div>
+          <div class="info-list" id="infoList"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© <span id="year"></span> <span id="footName">KVS&amp;CO</span>. <span data-i18n="footer_rights"></span></span>
+      <a href="/admin" data-i18n="admin"></a>
+    </div>
+  </footer>
+
+  <div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-labelledby="pdTitle">
+    <div class="modal glass">
+      <button class="btn btn-icon modal-close" type="button" id="modalClose" aria-label="Close"><span data-icon="close"></span></button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+  <div class="toast glass" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="/static/js/icons.js"></script>
+  <script src="/static/js/i18n.js"></script>
+  <script src="/static/js/site.js"></script>
+</body>
+</html>
